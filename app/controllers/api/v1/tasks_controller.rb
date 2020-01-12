@@ -1,5 +1,5 @@
 module Api
-    module V1        
+    module V1
         class TasksController < ApplicationController
             # GET /api/v1/tasks
             def index
