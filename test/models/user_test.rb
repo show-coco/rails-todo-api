@@ -41,4 +41,11 @@ class UserTest < ActiveSupport::TestCase
       assert_not @user.valid?
     end
   end
+
+  test 'email should be unique' do
+    deplicate_user = @user.dup
+    @user.save
+    deplicate_user.email.upcase!
+    assert_not deplicate_user.valid?
+  end
 end
