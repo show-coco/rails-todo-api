@@ -4,7 +4,7 @@ module Api
             # GET /api/v1/tasks
             def index
                 @tasks = Task.all.order(id: "DESC")
-                render json: { status: 'SUCCESS', data: @tasks } 
+                render status: 200, json: { status: 200, data: @tasks } 
             end
 
             # POST /api/v1/tasks
@@ -12,9 +12,11 @@ module Api
                 @task = Task.new(task_params)
                 
                 if @task.save
-                    render json: { status: 'SUCCESS', data: @task }
+                    render status: 200, json: { status: 200, data: @task }
+                elsif @task.title.blank?
+                    render status: 400, json: { status: 400, data: @task.errors }
                 else
-                    render json: { status: 'ERROR', data: @task.errors }
+                    render status: 500, json: { stauts: 500 }
                 end
             end
 
@@ -24,9 +26,11 @@ module Api
                 @task.title = params[:title]
 
                 if @task.save
-                    render json: { status: 'SUCCESS', data: @task }
+                    render status: 200, json: { status: 200, data: @task }
+                elsif @task.title.blank?
+                    render status: 400, json: { status: 400, data: @task.errors }
                 else
-                    render json: { status: 'ERROR', data: @task.errors }
+                    render status: 500, json: { stauts: 500 }
                 end
             end
 
@@ -34,7 +38,7 @@ module Api
             def destroy
                 @task = Task.find(params[:id])
                 @task.destroy
-                render json: { status: 'SUCCESS', data: @task }
+                render status: 200, json: { status: 200, data: @task }
             end
 
             private 
