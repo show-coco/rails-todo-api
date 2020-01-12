@@ -39,9 +39,9 @@ module Api
 
             private 
             
-            def task_params
-                params.require(:task).permit(:title)
-            end
+                def task_params
+                    params.require(:task).permit(:title)
+                end
         end
      end
 end
